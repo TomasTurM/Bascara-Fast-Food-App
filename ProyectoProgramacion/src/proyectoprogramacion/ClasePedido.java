@@ -12,6 +12,11 @@ package proyectoprogramacion;
 public class ClasePedido {
     private String nombreConsumidor;
     private String comida;
+    private boolean dobleHamburguesa;
+    private boolean tripleHamburguesa;
+    private boolean queso;
+    private boolean tomate;
+    private boolean lechuga;
     private String bebida;
     private String guarnicion;
     private String aderezo;

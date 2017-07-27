@@ -15,6 +15,12 @@ import java.awt.event.ItemListener;
  */
 public class VentanaApp extends JFrame implements ItemListener {
     ClasePedido clasePedido = new ClasePedido();
+    JPanel preferenciasHamburguesa = new JPanel();
+    JPanel preferenciasPizza = new JPanel();
+    JPanel preferenciasEmpanadas = new JPanel();
+    JPanel panelPrincipal1 = new JPanel();
+    JPanel panelPrincipal2 = new JPanel();
+    JPanel panelPrincipal3 = new JPanel();
     
     public VentanaApp () {
         super("App");
@@ -26,16 +32,18 @@ public class VentanaApp extends JFrame implements ItemListener {
         JPanel bienvenido = new JPanel();
         bienvenido.setLayout(new FlowLayout());
         JLabel fuente = new JLabel();
-        fuente.setFont(new java.awt.Font("Tahoma", 0, 36));
+        fuente.setFont(new java.awt.Font("Tahoma", 1, 11));
+        fuente.setForeground(new java.awt.Color(255, 255, 255));
         bienvenido.add(fuente);
         
-        /*JPanel logo = new JPanel();
+        JPanel logo = new JPanel();
         logo.setLayout(new FlowLayout());
-        logo.add(new ImageIcon());*/
+        ImageIcon icon = new ImageIcon("ProyectoProgramacion/dibujo.png", "Logo");
+        logo.add(new JLabel(icon));
         
         JPanel texto = new JPanel();
         texto.setLayout(new FlowLayout());
-        texto.add(new JLabel("Hola " + ", ¿Qué desea ordenar?"));
+        texto.add(new JLabel("Hola " + " ¿Qué desea ordenar?"));
         
         JPanel comida = new JPanel();
         comida.setLayout(new FlowLayout());
@@ -44,19 +52,33 @@ public class VentanaApp extends JFrame implements ItemListener {
         String[] listaComida = {"Hamburguesa", "Pizza", "Empanadas"};
         JPanel opcionesComida = new JPanel();
         opcionesComida.setLayout(new FlowLayout());
-        opcionesComida.add(new JComboBox(listaComida));
+        opcionesComida.add(new JComboBox(listaComida));    
         
-        JPanel preferenciasHaburguesa = new JPanel();
-        preferenciasHaburguesa.setLayout(new BoxLayout(preferenciasHaburguesa, BoxLayout.Y_AXIS));
-        preferenciasHaburguesa.add(new JRadioButton("Doble Hamburguesa"));
-        preferenciasHaburguesa.add(new JRadioButton("Triple Hamburguesa"));
-        preferenciasHaburguesa.add(new JCheckBox("Queso"));
-        preferenciasHaburguesa.add(new JCheckBox(""));
-        preferenciasHaburguesa.add(new JCheckBox(""));
+        preferenciasHamburguesa.setLayout(new BoxLayout(preferenciasHamburguesa, BoxLayout.Y_AXIS));
+        preferenciasHamburguesa.add(new JRadioButton("Doble Hamburguesa"));
+        preferenciasHamburguesa.add(new JRadioButton("Triple Hamburguesa"));
+        preferenciasHamburguesa.add(new JCheckBox("Queso"));
+        preferenciasHamburguesa.add(new JCheckBox("Tomate"));
+        preferenciasHamburguesa.add(new JCheckBox("Lechuga"));
+        preferenciasHamburguesa.add(new JCheckBox("Mayonesa"));
+        preferenciasHamburguesa.hide();    
         
+        preferenciasPizza.setLayout(new BoxLayout(preferenciasPizza, BoxLayout.Y_AXIS));
+        preferenciasPizza.add(new JRadioButton("Tomate"));
+        preferenciasPizza.add(new JRadioButton("Rucula"));
+        preferenciasPizza.add(new JCheckBox("Huevo"));
+        preferenciasPizza.add(new JCheckBox("Jamon"));
+        preferenciasPizza.hide();
         
-        
-        
+        preferenciasEmpanadas.setLayout(new BoxLayout(preferenciasEmpanadas, BoxLayout.Y_AXIS));
+        preferenciasEmpanadas.add(new JLabel("Cantidad Empanadas:"));
+        preferenciasEmpanadas.add(new JTextField(2));
+        preferenciasEmpanadas.add(new JRadioButton("Pollo"));
+        preferenciasEmpanadas.add(new JRadioButton("Carne"));
+        preferenciasEmpanadas.add(new JRadioButton("Carne Cuchillo"));
+        preferenciasEmpanadas.add(new JRadioButton("Jamon y Queso"));
+        preferenciasEmpanadas.add(new JRadioButton("Criollo"));
+        preferenciasEmpanadas.hide();
         
         JPanel bebida = new JPanel();
         bebida.setLayout(new FlowLayout());
@@ -89,28 +111,63 @@ public class VentanaApp extends JFrame implements ItemListener {
         botonConfirmar.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botonConfirmar.add(new JButton("Confirmar"));
         
-        JPanel panelPrincipal = new JPanel();
-        panelPrincipal.setLayout(new GridLayout(10,2));
-        panelPrincipal.add(bienvenido);
+        
+        panelPrincipal1.setLayout(new GridLayout(2,2));
+        panelPrincipal1.add(bienvenido);
+        panelPrincipal1.add(logo);
+        panelPrincipal1.add(texto);
+        panelPrincipal1.add(new JLabel(""));
+        
+        
+        panelPrincipal2.setLayout(new GridLayout(4,2));
+        panelPrincipal2.add(comida);
+        panelPrincipal2.add(opcionesComida);
+        panelPrincipal2.add(preferenciasHamburguesa);
+        panelPrincipal2.add(new JLabel(""));
+        panelPrincipal2.add(preferenciasPizza);
+        panelPrincipal2.add(new JLabel(""));
+        panelPrincipal2.add(preferenciasEmpanadas);
+        panelPrincipal2.add(new JLabel(""));
+        
+        
+        panelPrincipal3.setLayout(new GridLayout(4,2));
+        panelPrincipal3.add(bebida);
+        panelPrincipal3.add(opcionesBebida);
+        panelPrincipal3.add(guarnicion);
+        panelPrincipal3.add(opcionesGuarnicion);
+        panelPrincipal3.add(aderezo);
+        panelPrincipal3.add(opcionesAderezo);
+        panelPrincipal3.add(new JLabel(""));
+        panelPrincipal3.add(botonConfirmar);
+        
+        Container cp = getContentPane();
+        cp.add(panelPrincipal1, BorderLayout.NORTH);
+        cp.add(panelPrincipal2, BorderLayout.CENTER);
+        cp.add(panelPrincipal3, BorderLayout.SOUTH);
+        this.pack();
     }
     
     @Override
     public void itemStateChanged(ItemEvent e) {
         if(e.getStateChange() == ItemEvent.SELECTED) {
             if(e.getItem() == "Hamburguesa") {
-                System.out.println("river => Intoxicados");
+                preferenciasPizza.hide();
+                preferenciasEmpanadas.hide();
+                preferenciasHamburguesa.show();
+                this.panelPrincipal2.validate();
             }
             if(e.getItem() == "Pizza") {
-                System.out.println("boca => el único Grande");
+                preferenciasPizza.show();
+                preferenciasEmpanadas.hide();
+                preferenciasHamburguesa.hide();
+                this.panelPrincipal2.validate();
             }
             if(e.getItem() == "Empanadas") {
-                System.out.println("boca => el único Grande");
+                preferenciasPizza.hide();
+                preferenciasEmpanadas.show();
+                preferenciasHamburguesa.hide();
+                this.panelPrincipal2.validate();
             }
         }
     }
-    
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
 }
