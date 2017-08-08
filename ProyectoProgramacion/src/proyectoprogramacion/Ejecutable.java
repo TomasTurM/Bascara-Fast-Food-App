@@ -11,7 +11,13 @@ package proyectoprogramacion;
  */
 public class Ejecutable {
     public static void main(String[] args) {
-        VentanaApp ventanaApp = new VentanaApp();
-        ventanaApp.setVisible(true);
+        /*VentanaApp ventanaApp = new VentanaApp();
+        ventanaApp.setVisible(true);*/
+        
+        /*VentanaLogin ventanaLogin = new VentanaLogin();
+        ventanaLogin.setVisible(true);*/
+        
+        AbrirArchivoTexto text = new AbrirArchivoTexto();
+        text.setVisible(true);
     }
 }
