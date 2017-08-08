@@ -10,14 +10,25 @@ package proyectoprogramacion;
  * @author tomasm
  */
 public class ClasePedido {
-    private String nombreConsumidor;
-    private String comida;
-    private boolean dobleHamburguesa;
-    private boolean tripleHamburguesa;
-    private boolean queso;
-    private boolean tomate;
-    private boolean lechuga;
-    private String bebida;
-    private String guarnicion;
-    private String aderezo;
+    protected String nombreConsumidor;
+    protected String comida;
+    protected boolean dobleHamburguesa;
+    protected boolean tripleHamburguesa;
+    protected boolean queso;
+    protected boolean tomate1;
+    protected boolean tomate2;
+    protected boolean lechuga;
+    protected boolean mayonesa;
+    protected boolean rucula;
+    protected boolean huevo;
+    protected boolean jamon;
+    protected String cantEmpanadas;
+    protected boolean pollo;
+    protected boolean carne;
+    protected boolean carneCuchillo;
+    protected boolean jamon_queso;
+    protected boolean criollo;
+    protected String bebida;
+    protected String guarnicion;
+    protected String aderezo;
 }
