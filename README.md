@@ -3,3 +3,5 @@ Descripcion: El objetivo de nuestro trabajo será crear un programa que permita 
 
 Versiones:
 - Bascara Fast Food App Version 1.0
+      - Bascara Fast Food App Version 1.0 - Actualizacion 2
+      - Bascara Fast Food App Version 1.0 - Actualizacion 3
