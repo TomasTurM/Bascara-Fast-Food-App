@@ -17,7 +17,6 @@ public class Ejecutable {
         VentanaLogin ventanaLogin = new VentanaLogin();
         ventanaLogin.setVisible(true);
         
-        /*AbrirArchivoTexto text = new AbrirArchivoTexto();
-        text.setVisible(true);*/
+        
     }
 }

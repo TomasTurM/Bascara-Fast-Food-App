@@ -18,7 +18,10 @@ public class VentanaLogin extends JFrame implements KeyListener, ActionListener,
     
     JButton botonE = new JButton("Entrar");
     JTextField text1 = new JTextField(20);
-    JTextField text2 = new JTextField(20);
+    JPasswordField text2 = new JPasswordField(20);
+    
+    String nombreConsumidor;
+    
     public VentanaLogin(){
         super("Bascara Fast Food App");
         setSize(250,250);
@@ -33,6 +36,7 @@ public class VentanaLogin extends JFrame implements KeyListener, ActionListener,
         JPanel texto1 = new JPanel();
         texto1.setLayout(new FlowLayout());
         texto1.add(text1);
+        text1.addActionListener(this::actionPerformed);
         
         JPanel contraseña = new JPanel();
         contraseña.setLayout(new FlowLayout());
@@ -41,6 +45,7 @@ public class VentanaLogin extends JFrame implements KeyListener, ActionListener,
         JPanel texto2 = new JPanel();
         texto2.setLayout(new FlowLayout());
         texto2.add(text2);
+        text2.addActionListener(this::actionPerformed);
         
         JPanel botonEntrar = new JPanel();
         botonEntrar.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -62,15 +67,17 @@ public class VentanaLogin extends JFrame implements KeyListener, ActionListener,
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == this.botonE) {
+        if(e.getSource() == this.botonE || e.getSource() == this.text1 || e.getSource() == this.text2) {
+            
             if (text1.getText().equals("")) {
                 JOptionPane.showMessageDialog(null,"Ingrese su nombre","Error",JOptionPane.INFORMATION_MESSAGE); 
             }else{
                 if (text2.getText().equals("")){
                    JOptionPane.showMessageDialog(null,"Ingrese su contraseña","Error",JOptionPane.INFORMATION_MESSAGE);
                 }else{
+                   nombreConsumidor = text1.getText();
+                   clasePedido.nombreConsumidor = nombreConsumidor; 
                    VentanaApp ventanaApp = new VentanaApp();
-                   ventanaApp.nombre = text1.getText();
                    this.setVisible(false);
                    ventanaApp.setVisible(true);
                }

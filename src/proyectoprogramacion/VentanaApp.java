@@ -10,22 +10,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 /**
  *
  * @author tomasm
  */
-public class VentanaApp extends JFrame implements ItemListener, ActionListener {
+public class VentanaApp extends JFrame implements ItemListener, ActionListener, WindowFocusListener {
     ClasePedido pedido = new ClasePedido();
     ClasePedido clasePedido = new ClasePedido();
+    
+    VentanaLogin ventanaLogin = new VentanaLogin();
+    
+    String nombreConsumidor = ventanaLogin.clasePedido.nombreConsumidor;
+    
     JPanel preferenciasHamburguesa = new JPanel();
     JPanel preferenciasPizza = new JPanel();
     JPanel preferenciasEmpanadas = new JPanel();
     JPanel panelPrincipal1 = new JPanel();
     JPanel panelPrincipal2 = new JPanel();
+    JPanel pedirComida = new JPanel();
+    JPanel panelPreferencias = new JPanel();
     JPanel panelPrincipal3 = new JPanel();
     Container cp = getContentPane();
+    
     JButton confirmar = new JButton("Confirmar");
-    String nombre;
     
     JRadioButton rb1 = new JRadioButton("Doble Hamburguesa");
     JRadioButton rb2 = new JRadioButton("Triple Hamburguesa");
@@ -46,6 +55,9 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener {
     
     JTextField tf1 = new JTextField(2);
     
+    
+    JLabel jl1 = new JLabel();
+    
     String[] listaComida = {"","Hamburguesa", "Pizza", "Empanadas"};
     String[] listaBebida = {"Sin Bebida","Agua", "Coca~Cola","Coca~Cola Zero","Coca~Cola Light","Fanta", "Manaos", "Sprite", "Prity","Mirinda","Cerveza Iguana", "Fernet Branca"};
     String[] listaGuarnicion = {"Sin Guarnicion","Papas Fritas", "Ensalada","Rabas"};
@@ -62,6 +74,7 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocation(250,250);
+        addWindowFocusListener(this);
         
         JPanel bienvenido = new JPanel();
         bienvenido.setLayout(new FlowLayout());
@@ -78,7 +91,7 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener {
         
         JPanel texto = new JPanel();
         texto.setLayout(new FlowLayout());
-        texto.add(new JLabel("Hola " + nombre + ", ¿Qué desea ordenar?"));
+        texto.add(jl1);
         
         JPanel comida = new JPanel();
         comida.setLayout(new FlowLayout());
@@ -102,14 +115,12 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener {
         preferenciasHamburguesa.add(cb2);
         preferenciasHamburguesa.add(cb3);
         preferenciasHamburguesa.add(cb4);
-        preferenciasHamburguesa.hide();    
         
         preferenciasPizza.setLayout(new BoxLayout(preferenciasPizza, BoxLayout.Y_AXIS));
         preferenciasPizza.add(cb5);
         preferenciasPizza.add(cb6);
         preferenciasPizza.add(cb7);
         preferenciasPizza.add(cb8);
-        preferenciasPizza.hide();
         
         preferenciasEmpanadas.setLayout(new BoxLayout(preferenciasEmpanadas, BoxLayout.Y_AXIS));
         preferenciasEmpanadas.add(new JLabel("Cantidad Empanadas:"));
@@ -126,15 +137,14 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener {
         preferenciasEmpanadas.add(rb5);
         preferenciasEmpanadas.add(rb6);
         preferenciasEmpanadas.add(rb7);
-        preferenciasEmpanadas.hide();
         
         JPanel bebida = new JPanel();
         bebida.setLayout(new FlowLayout());
         bebida.add(new JLabel("Bebida"));
         
         JPanel opcionesBebida = new JPanel();
-        opcionesComida.setLayout(new FlowLayout());
-        opcionesComida.add(comboBoxBebida);
+        opcionesBebida.setLayout(new FlowLayout());
+        opcionesBebida.add(comboBoxBebida);
         
         JPanel guarnicion = new JPanel();
         guarnicion.setLayout(new FlowLayout());
@@ -164,30 +174,63 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener {
         panelPrincipal1.add(logo);
         panelPrincipal1.add(texto);
         
-        panelPrincipal2.setLayout(new GridLayout(3,2));
-        panelPrincipal2.add(comida);
-        panelPrincipal2.add(opcionesComida);
-        panelPrincipal2.add(preferenciasHamburguesa);
-        panelPrincipal2.add(preferenciasPizza);
-        panelPrincipal2.add(preferenciasEmpanadas);
+        panelPrincipal2.setLayout(new BoxLayout(panelPrincipal2, BoxLayout.Y_AXIS));
+        pedirComida.setLayout(new FlowLayout());
+        pedirComida.add(comida);
+        pedirComida.add(opcionesComida);
+        panelPrincipal2.add(pedirComida);
+        panelPreferencias.setLayout(new FlowLayout());
+        panelPrincipal2.add(panelPreferencias);
+        panelPrincipal2.add(new JLabel(""));
         
+        GridBagConstraints medidas1 = new GridBagConstraints();
+        medidas1.gridx = 0;
+        medidas1.gridy = 0;
+        medidas1.gridwidth = 1;
+        medidas1.gridheight = 1;
+        GridBagConstraints medidas2 = new GridBagConstraints();
+        medidas2.gridx = 1;
+        medidas2.gridy = 0;
+        medidas2.gridwidth = 1;
+        medidas2.gridheight = 1;
+        GridBagConstraints medidas3 = new GridBagConstraints();
+        medidas3.gridx = 0;
+        medidas3.gridy = 1;
+        medidas3.gridwidth = 1;
+        medidas3.gridheight = 1;
+        GridBagConstraints medidas4 = new GridBagConstraints();
+        medidas4.gridx = 1;
+        medidas4.gridy = 1;
+        medidas4.gridwidth = 1;
+        medidas4.gridheight = 1;
+        GridBagConstraints medidas5 = new GridBagConstraints();
+        medidas5.gridx = 0;
+        medidas5.gridy = 2;
+        medidas5.gridwidth = 1;
+        medidas5.gridheight = 1;
+        GridBagConstraints medidas6 = new GridBagConstraints();
+        medidas6.gridx = 1;
+        medidas6.gridy = 2;
+        medidas6.gridwidth = 1;
+        medidas6.gridheight = 1;
+        GridBagConstraints medidas7 = new GridBagConstraints();
+        medidas7.gridx = 2;
+        medidas7.gridy = 3;
+        medidas7.gridwidth = 1;
+        medidas7.gridheight = 1;
+        panelPrincipal3.setLayout(new GridBagLayout());
+        panelPrincipal3.add(bebida, medidas1);
+        panelPrincipal3.add(opcionesBebida, medidas2);
+        panelPrincipal3.add(guarnicion, medidas3);
+        panelPrincipal3.add(opcionesGuarnicion, medidas4);
+        panelPrincipal3.add(aderezo, medidas5);
+        panelPrincipal3.add(opcionesAderezo, medidas6);
+        panelPrincipal3.add(botonConfirmar, medidas7);
         
-        panelPrincipal3.setLayout(new GridLayout(5,2));
-        panelPrincipal3.add(bebida);
-        panelPrincipal3.add(opcionesBebida);
-        panelPrincipal3.add(guarnicion);
-        panelPrincipal3.add(opcionesGuarnicion);
-        panelPrincipal3.add(aderezo);
-        panelPrincipal3.add(opcionesAderezo);
-        panelPrincipal3.add(new JLabel(""));
-        panelPrincipal3.add(new JLabel(""));
-        panelPrincipal3.add(new JLabel(""));
-        panelPrincipal3.add(botonConfirmar);
-        
-        
-        cp.add(panelPrincipal1, BorderLayout.NORTH);
-        cp.add(panelPrincipal2, BorderLayout.CENTER);
-        cp.add(panelPrincipal3, BorderLayout.SOUTH);
+        cp.setLayout(new BoxLayout(cp, BoxLayout.Y_AXIS));
+        cp.add(panelPrincipal1);
+        cp.add(panelPrincipal2);
+        cp.add(panelPrincipal3);
         this.pack();
     }
     
@@ -195,33 +238,49 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener {
             public void itemStateChanged(ItemEvent evt) {
                 if(evt.getStateChange() == ItemEvent.SELECTED) {
                     if(evt.getItem() == "") {
-                        preferenciasPizza.hide();
-                        preferenciasEmpanadas.hide();
-                        preferenciasHamburguesa.hide();
+                        panelPreferencias.remove(preferenciasPizza);
+                        panelPreferencias.remove(preferenciasHamburguesa);
+                        panelPreferencias.remove(preferenciasEmpanadas);
                         vaciarHamburguesa();
                         vaciarPizza();
                         vaciarEmpanadas();
+                        panelPreferencias.validate();
+                        panelPrincipal2.validate();
+                        cp.validate();
+                        this.pack();
                     }
                     if(evt.getItem() == "Hamburguesa") {
-                        preferenciasPizza.hide();
-                        preferenciasEmpanadas.hide();
+                        panelPreferencias.remove(preferenciasPizza);
+                        panelPreferencias.remove(preferenciasEmpanadas);
                         vaciarEmpanadas();
                         vaciarPizza();
-                        preferenciasHamburguesa.show();
+                        panelPreferencias.add(preferenciasHamburguesa);
+                        panelPreferencias.validate();
+                        panelPrincipal2.validate();
+                        cp.validate();
+                        this.pack();
                     }
                     if(evt.getItem() == "Pizza") {
-                        preferenciasEmpanadas.hide();
-                        preferenciasHamburguesa.hide();
+                        panelPreferencias.remove(preferenciasEmpanadas);
+                        panelPreferencias.remove(preferenciasHamburguesa);
                         vaciarHamburguesa();
                         vaciarEmpanadas();
-                        preferenciasPizza.show();
+                        panelPreferencias.add(preferenciasPizza);
+                        panelPreferencias.validate();
+                        panelPrincipal2.validate();
+                        cp.validate();
+                        this.pack();
                     }
                     if(evt.getItem() == "Empanadas") {
-                        preferenciasPizza.hide();
-                        preferenciasHamburguesa.hide();
+                        panelPreferencias.remove(preferenciasPizza);
+                        panelPreferencias.remove(preferenciasHamburguesa);
                         vaciarHamburguesa();
                         vaciarPizza();
-                        preferenciasEmpanadas.show();
+                        panelPreferencias.add(preferenciasEmpanadas);
+                        panelPreferencias.validate();
+                        panelPrincipal2.validate();
+                        cp.validate();
+                        this.pack();
                     }}
                     /*Problema de CheckBox no solucionado
                 else if (evt.getStateChange() == ItemEvent.ITEM_STATE_CHANGED) {
@@ -270,6 +329,19 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener {
         if (e.getSource() == this.confirmar) {
              setearPedido();
         }
+    }   
+    
+    @Override
+    public void windowGainedFocus(WindowEvent e) {
+        String textoHola = "Hola " + nombreConsumidor + ", ¿Qué desea ordenar?";
+        jl1.setText(textoHola);
+        jl1.validate();
+        panelPrincipal1.validate();
+        cp.validate();
+    }
+
+    @Override
+    public void windowLostFocus(WindowEvent e) {
     }
     
     public void vaciarHamburguesa () {
@@ -298,7 +370,8 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener {
     }
     
     public void setearPedido () {
-        pedido.comida = comboBoxComida.getSelectedItem().toString();
+            pedido.nombreConsumidor = nombreConsumidor;
+            pedido.comida = comboBoxComida.getSelectedItem().toString();
              pedido.dobleHamburguesa = rb1.isSelected();
              pedido.tripleHamburguesa = rb2.isSelected();
              pedido.queso = cb1.isSelected();
@@ -318,5 +391,12 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener {
              pedido.bebida = comboBoxBebida.getSelectedItem().toString();
              pedido.guarnicion = comboBoxGuarnicion.getSelectedItem().toString();
              pedido.aderezo = comboBoxAderezo.getSelectedItem().toString();
+             System.out.println(toString());
+             
+    }
+
+    @Override
+    public String toString() {
+        return "VentanaApp{" + "pedido=" + pedido + '}';
     }
 }
