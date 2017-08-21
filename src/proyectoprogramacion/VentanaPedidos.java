@@ -12,6 +12,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.*;
 import java.util.*;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.json.* ;
 
 /**
@@ -20,6 +21,8 @@ import org.json.* ;
  */
 public class VentanaPedidos extends JFrame implements ItemListener, ActionListener{
     JPanel pedidos = new JPanel();
+    
+    VentanaApp ventanaApp = new VentanaApp();
     
     public VentanaPedidos () {
         super("Bascara Fast Food App");
@@ -44,7 +47,6 @@ public class VentanaPedidos extends JFrame implements ItemListener, ActionListen
         pedidos.setLayout(new BoxLayout(pedidos, BoxLayout.Y_AXIS));
         
         
-         JSONObject obj = new JSONObject(); 
         
         
         
@@ -61,6 +63,11 @@ public class VentanaPedidos extends JFrame implements ItemListener, ActionListen
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    String JSONContent = ventanaApp.toString();
+            
+    JSONParser parser = JSONParser.createParser(JSONContent);
+    
     
      
     

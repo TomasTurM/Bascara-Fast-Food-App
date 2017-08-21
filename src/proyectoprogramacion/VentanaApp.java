@@ -24,6 +24,9 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener, 
     
     String nombreConsumidor = ventanaLogin.clasePedido.nombreConsumidor;
     
+    int numeroPedido = 1;
+    int numValid;
+    
     JPanel preferenciasHamburguesa = new JPanel();
     JPanel preferenciasPizza = new JPanel();
     JPanel preferenciasEmpanadas = new JPanel();
@@ -106,8 +109,8 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener, 
         
         preferenciasHamburguesa.setLayout(new BoxLayout(preferenciasHamburguesa, BoxLayout.Y_AXIS));
         
-        rb1.addActionListener(this::actionPerformed);
-        rb2.addActionListener(this::actionPerformed);
+        rb1.addItemListener(this::itemStateChanged);
+        rb2.addItemListener(this::itemStateChanged);
         
         preferenciasHamburguesa.add(rb1);
         preferenciasHamburguesa.add(rb2);
@@ -126,11 +129,11 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener, 
         preferenciasEmpanadas.add(new JLabel("Cantidad Empanadas:"));
         preferenciasEmpanadas.add(tf1);
         
-        rb3.addActionListener(this::actionPerformed);
-        rb4.addActionListener(this::actionPerformed);
-        rb5.addActionListener(this::actionPerformed);
-        rb6.addActionListener(this::actionPerformed);
-        rb7.addActionListener(this::actionPerformed);
+        rb3.addItemListener(this::itemStateChanged);
+        rb4.addItemListener(this::itemStateChanged);
+        rb5.addItemListener(this::itemStateChanged);
+        rb6.addItemListener(this::itemStateChanged);
+        rb7.addItemListener(this::itemStateChanged);
         
         preferenciasEmpanadas.add(rb3);
         preferenciasEmpanadas.add(rb4);
@@ -238,6 +241,7 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener, 
             public void itemStateChanged(ItemEvent evt) {
                 if(evt.getStateChange() == ItemEvent.SELECTED) {
                     if(evt.getItem() == "") {
+                        numValid = 0;
                         panelPreferencias.remove(preferenciasPizza);
                         panelPreferencias.remove(preferenciasHamburguesa);
                         panelPreferencias.remove(preferenciasEmpanadas);
@@ -250,6 +254,7 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener, 
                         this.pack();
                     }
                     if(evt.getItem() == "Hamburguesa") {
+                        numValid = 1;
                         panelPreferencias.remove(preferenciasPizza);
                         panelPreferencias.remove(preferenciasEmpanadas);
                         vaciarEmpanadas();
@@ -261,6 +266,7 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener, 
                         this.pack();
                     }
                     if(evt.getItem() == "Pizza") {
+                        numValid = 2;
                         panelPreferencias.remove(preferenciasEmpanadas);
                         panelPreferencias.remove(preferenciasHamburguesa);
                         vaciarHamburguesa();
@@ -272,6 +278,7 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener, 
                         this.pack();
                     }
                     if(evt.getItem() == "Empanadas") {
+                        numValid = 3;
                         panelPreferencias.remove(preferenciasPizza);
                         panelPreferencias.remove(preferenciasHamburguesa);
                         vaciarHamburguesa();
@@ -281,47 +288,72 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener, 
                         panelPrincipal2.validate();
                         cp.validate();
                         this.pack();
-                    }}
-                    /*Problema de CheckBox no solucionado
-                else if (evt.getStateChange() == ItemEvent.ITEM_STATE_CHANGED) {
-                    if(rb1.equals(true)) {
+                    }
+                    if(rb1.isSelected()) {
                         rb2.setSelected(false);
-                        System.out.println("Hola");
-                    }
-                    if(evt.getSource().equals(rb2)) {
+                        preferenciasHamburguesa.validate();
+                        panelPreferencias.validate();
+                        panelPrincipal2.validate();
+                        cp.validate();
+                    } 
+                    if(rb2.isSelected()) {
                         rb1.setSelected(false);
+                        preferenciasHamburguesa.validate();
+                        panelPreferencias.validate();
+                        panelPrincipal2.validate();
+                        cp.validate();
                     }
-                    if(evt.getSource().equals(rb3)) {
+                    if(rb3.isSelected()) {
                         rb4.setSelected(false);
                         rb5.setSelected(false);
                         rb6.setSelected(false);
                         rb7.setSelected(false);
+                        preferenciasEmpanadas.validate();
+                        panelPreferencias.validate();
+                        panelPrincipal2.validate();
+                        cp.validate();
                     }
-                    if(evt.getSource().equals(rb4)) {
+                    if(rb4.isSelected()) {
                         rb3.setSelected(false);
                         rb5.setSelected(false);
                         rb6.setSelected(false);
                         rb7.setSelected(false);
+                        preferenciasEmpanadas.validate();
+                        panelPreferencias.validate();
+                        panelPrincipal2.validate();
+                        cp.validate();
                     }
-                    if(evt.getSource().equals(rb5)) {
+                    if(rb5.isSelected()) {
                         rb4.setSelected(false);
                         rb3.setSelected(false);
                         rb6.setSelected(false);
                         rb7.setSelected(false);
+                        preferenciasEmpanadas.validate();
+                        panelPreferencias.validate();
+                        panelPrincipal2.validate();
+                        cp.validate();
                     }
-                    if(evt.getSource().equals(rb6)) {
+                    if(rb6.isSelected()) {
                         rb4.setSelected(false);
                         rb5.setSelected(false);
                         rb3.setSelected(false);
                         rb7.setSelected(false);
+                        preferenciasEmpanadas.validate();
+                        panelPreferencias.validate();
+                        panelPrincipal2.validate();
+                        cp.validate();
                     }
-                    if(evt.getSource().equals(rb7)) {
+                    if(rb7.isSelected()) {
                         rb4.setSelected(false);
                         rb5.setSelected(false);
                         rb6.setSelected(false);
                         rb3.setSelected(false);
+                        preferenciasEmpanadas.validate();
+                        panelPreferencias.validate();
+                        panelPrincipal2.validate();
+                        cp.validate();
                     }
-                }*/
+                }
             }
 
     @Override
@@ -397,6 +429,29 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener, 
 
     @Override
     public String toString() {
-        return "VentanaApp{" + "pedido=" + pedido + '}';
+        String elPedido = "";
+        if (numValid == 1 && pedido.dobleHamburguesa == true) {
+            elPedido = "Pedido " + numeroPedido + " = " + "Doble Hamburguesa, " + "Queso = " + pedido.queso + ", Tomate = " + pedido.tomate1 + ", Lechuga = " + pedido.lechuga + ", Mayonesa = " + pedido.mayonesa + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        } else if (numValid == 1 && pedido.tripleHamburguesa == true) {
+            elPedido = "Pedido " + numeroPedido + " = " + "Triple Hamburguesa, " + "Queso = " + pedido.queso + ", Tomate = " + pedido.tomate1 + ", Lechuga = " + pedido.lechuga + ", Mayonesa = " + pedido.mayonesa + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        }
+        if (numValid == 1 && pedido.dobleHamburguesa == false && pedido.tripleHamburguesa == false) {
+            elPedido = "Pedido " + numeroPedido + " = " + "Hamburguesa Simple, " + "Queso = " + pedido.queso + ", Tomate = " + pedido.tomate1 + ", Lechuga = " + pedido.lechuga + ", Mayonesa = " + pedido.mayonesa + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        }  
+        if (numValid == 2) {
+            elPedido = "Pedido " + numeroPedido + " = " + "Pizza, " + "Tomate = " + pedido.tomate2 + ", Rucula = " + pedido.rucula + ", Huevo = " + pedido.huevo + ", Jamon = " + pedido.jamon + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        }
+        if (numValid == 3 && pedido.pollo == true) {
+            elPedido = "Pedido " + numeroPedido + " = " + pedido.cantEmpanadas + " Empanada/s de Pollo" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        } else if (numValid == 3 && pedido.carne == true) {
+            elPedido = "Pedido " + numeroPedido + " = " + pedido.cantEmpanadas + " Empanada/s de Carne" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        } else if (numValid == 3 && pedido.carneCuchillo == true) {
+            elPedido = "Pedido " + numeroPedido + " = " + pedido.cantEmpanadas + " Empanada/s de Carne al Cuchillo" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        } else if (numValid == 3 && pedido.jamon_queso == true) {
+            elPedido = "Pedido " + numeroPedido + " = " + pedido.cantEmpanadas + " Empanada/s de Jamon y Queso" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        } else if (numValid == 3 && pedido.criollo == true) {
+            elPedido = "Pedido " + numeroPedido + " = " + pedido.cantEmpanadas + " Empanada/s Criolla/s" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        }
+        return elPedido;
     }
 }
