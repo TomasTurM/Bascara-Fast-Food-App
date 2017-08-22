@@ -79,7 +79,9 @@ public class VentanaPedidos extends JFrame implements ItemListener, ActionListen
         }
     }
     
-    
+    void agregarPedido () {
+        
+    }
     
     
      

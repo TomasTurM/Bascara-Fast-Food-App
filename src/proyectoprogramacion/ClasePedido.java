@@ -9,7 +9,7 @@ package proyectoprogramacion;
  *
  * @author tomasm
  */
-public class ClasePedido {
+public class ClasePedido extends VentanaApp {
     protected String nombreConsumidor;
     protected String comida;
     protected boolean dobleHamburguesa;
