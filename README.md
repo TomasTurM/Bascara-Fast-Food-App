@@ -11,8 +11,9 @@ El pedido se basara en datos que estan pre-establecidos en una clase java llamad
 - **Pago:** En esta ventana, se procede al pago de los pedidos hechos anteriormente.
 
 ## Dependencias:
+- java-json.jar
+
 
 ## Integrantes:
 - Tomas Monier
 - Ivan Lopez
-
