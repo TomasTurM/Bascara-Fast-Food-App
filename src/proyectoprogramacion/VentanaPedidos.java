@@ -23,6 +23,9 @@ public class VentanaPedidos extends JFrame implements ItemListener, ActionListen
     JPanel pedidos = new JPanel();
     Container cp = getContentPane();
     
+    JSONObject pedidosJSON = new JSONObject();
+    JSONArray arrayPedidosJSON = new JSONArray();
+    
     VentanaApp ventanaApp = new VentanaApp();
     
     JButton jb1 = new JButton("Hacer otro pedido");

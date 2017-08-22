@@ -9,19 +9,9 @@ package proyectoprogramacion;
  *
  * @author tomasm
  */
-public class ClasePedido extends VentanaApp {
+public class ClaseProducto {
     protected String nombreConsumidor;
     protected String comida;
-    protected boolean dobleHamburguesa;
-    protected boolean tripleHamburguesa;
-    protected boolean queso;
-    protected boolean tomate1;
-    protected boolean tomate2;
-    protected boolean lechuga;
-    protected boolean mayonesa;
-    protected boolean rucula;
-    protected boolean huevo;
-    protected boolean jamon;
     protected String cantEmpanadas;
     protected boolean pollo;
     protected boolean carne;
@@ -31,6 +21,6 @@ public class ClasePedido extends VentanaApp {
     protected String bebida;
     protected String guarnicion;
     protected String aderezo;
-    
+ 
     /*Recordatorio: Crear Precios*/
 }
