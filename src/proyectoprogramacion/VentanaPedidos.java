@@ -21,35 +21,43 @@ import org.json.* ;
  */
 public class VentanaPedidos extends JFrame implements ItemListener, ActionListener{
     JPanel pedidos = new JPanel();
+    Container cp = getContentPane();
     
     VentanaApp ventanaApp = new VentanaApp();
+    
+    JButton jb1 = new JButton("Hacer otro pedido");
+    JButton jb2 = new JButton("Continuar al pago");
     
     public VentanaPedidos () {
         super("Bascara Fast Food App");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(250,250);
         setResizable(false);
         setLocation(250,250);
         
-        JPanel label1 = new JPanel();
-        label1.setLayout(new FlowLayout());
+        JPanel label1logo = new JPanel();
+        label1logo.setLayout(new FlowLayout());
         JLabel fuente = new JLabel();
         fuente.setFont(new java.awt.Font("Tahoma", 1, 40));
         fuente.setForeground(new java.awt.Color(255,   0,   0));
         fuente.setText("Pedidos");
-        label1.add(fuente);
-        
-        JPanel logo = new JPanel();
-        logo.setLayout(new FlowLayout());
+        label1logo.add(fuente);
         ImageIcon icon = new ImageIcon("dibujo.png", "Logo");
-        logo.add(new JLabel(icon));
+        label1logo.add(new JLabel(icon));
         
+        pedidos.setLayout(new BoxLayout(cp, BoxLayout.Y_AXIS));
         
-        pedidos.setLayout(new BoxLayout(pedidos, BoxLayout.Y_AXIS));
+        JPanel jButtons = new JPanel();
+        jButtons.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        jb1.addActionListener(this::actionPerformed);
+        jb2.addActionListener(this::actionPerformed);
+        jButtons.add(jb1);
+        jButtons.add(jb2);
         
-        
-        
-        
-        
+        cp.setLayout(new BoxLayout(cp, BoxLayout.Y_AXIS));
+        cp.add(label1logo);
+        cp.add(pedidos);
+        cp.add(jButtons);
         
         this.pack();
     }
@@ -61,12 +69,17 @@ public class VentanaPedidos extends JFrame implements ItemListener, ActionListen
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (e.getSource() == this.jb1) {
+            this.setVisible(false);
+            ventanaApp.setVisible(true);
+        }
+        if (e.getSource() == this.jb2) {
+            this.setVisible(false);
+            
+        }
     }
     
-    String JSONContent = ventanaApp.toString();
-            
-    JSONParser parser = JSONParser.createParser(JSONContent);
+    
     
     
      
@@ -84,7 +97,7 @@ public class VentanaPedidos extends JFrame implements ItemListener, ActionListen
     
     
     
-    
+    /*
     
     public void crearPedido () {
         if (getArchivo("Pedidos") != null) {
@@ -169,7 +182,7 @@ public class VentanaPedidos extends JFrame implements ItemListener, ActionListen
             cantidad = cantidad + 1;
         }
         return cantidad;
-    }
+    }*/
 }
     
     

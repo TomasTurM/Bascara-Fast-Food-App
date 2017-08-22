@@ -31,4 +31,6 @@ public class ClasePedido {
     protected String bebida;
     protected String guarnicion;
     protected String aderezo;
+    
+    /*Recordatorio: Crear Precios*/
 }
