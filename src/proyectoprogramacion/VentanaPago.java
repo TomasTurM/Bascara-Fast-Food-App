@@ -16,9 +16,6 @@ import java.awt.event.ItemListener;
  * @author tomasm
  */
 public class VentanaPago extends JFrame implements ActionListener, ItemListener {
-    
-    /*Recordatorio: Crear Objetos para elejir los datos de Trajeta*/
-    
     JPanel panelOpciones = new JPanel();
     JPanel opcionesEfectivo = new JPanel();
     JPanel opcionesTarjeta = new JPanel();

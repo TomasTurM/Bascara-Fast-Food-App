@@ -14,7 +14,7 @@ import java.awt.event.*;
  * @author tomasm
  */
 public class VentanaLogin extends JFrame implements KeyListener, ActionListener, ItemListener{
-    ClasePedido clasePedido = new ClasePedido();
+    ClaseProducto claseProducto = new ClaseProducto();
     
     JButton botonE = new JButton("Entrar");
     JTextField text1 = new JTextField(20);
@@ -76,7 +76,7 @@ public class VentanaLogin extends JFrame implements KeyListener, ActionListener,
                    JOptionPane.showMessageDialog(null,"Ingrese su contraseña","Error",JOptionPane.INFORMATION_MESSAGE);
                 }else{
                    nombreConsumidor = text1.getText();
-                   clasePedido.nombreConsumidor = nombreConsumidor; 
+                   claseProducto.nombreConsumidor = nombreConsumidor; 
                    VentanaApp ventanaApp = new VentanaApp();
                    this.setVisible(false);
                    ventanaApp.setVisible(true);

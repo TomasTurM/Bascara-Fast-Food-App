@@ -9,7 +9,7 @@ package proyectoprogramacion;
  *
  * @author Ivan
  */
-public class clasePizza {
+public class ClasePizza {
     protected boolean tomate2;
     protected boolean rucula;
     protected boolean huevo;

@@ -19,6 +19,7 @@ import org.json.* ;
  *
  * @author tomasm
  */
+
 public class VentanaPedidos extends JFrame implements ItemListener, ActionListener{
     JPanel pedidos = new JPanel();
     Container cp = getContentPane();
@@ -82,111 +83,39 @@ public class VentanaPedidos extends JFrame implements ItemListener, ActionListen
         }
     }
     
-    void agregarPedido () {
-        
-    }
-    
-    
-     
-    
+    /* --Incompleto--
+    void leerPedidos () {
+        JSONParser parser = new JSONParser();
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*
-    
-    public void crearPedido () {
-        if (getArchivo("Pedidos") != null) {
-            pedidos.add(new JButton(""));
-        }
-        for (int i=0; i < getArchivo("Pedidos").length(); i++) {
-            
-        }
-        
-        
-        
-    }
-    
-    
-    
-    
-    public void escribirArchivo (File archivo,String texto) {
-        BufferedWriter bw;
         try {
-            bw = new BufferedWriter(new FileWriter(archivo,true));
-            bw.write(texto);
-            bw.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-    
-    public void borrarArchivo (File archivo) {
-        try {
-            if (archivo.exists()) {
-                archivo.delete();
-                System.out.println("Ficherro Borrado");
+
+            Object obj = parser.parse(new FileReader("f:\\test.json"));
+
+            JSONObject jsonObject = (JSONObject) obj;
+            System.out.println(jsonObject);
+
+            String name = (String) jsonObject.get("name");
+            System.out.println(name);
+
+            long age = (Long) jsonObject.get("age");
+            System.out.println(age);
+
+            // loop array
+            JSONArray msg = (JSONArray) jsonObject.get("messages");
+            Iterator<String> iterator = msg.iterator();
+            while (iterator.hasNext()) {
+                System.out.println(iterator.next());
             }
-        } catch (Exception e) {
-            System.out.println(e);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+
     }
-    
-    void modificarArchivo (File archivo,String texto) {
-        BufferedReader br;
-        try {
-            if (archivo.exists()) {
-                br = new BufferedReader(new FileReader(archivo));
-                escribirArchivo(archivo,texto);
-                br.close();
-            } else {
-                System.out.println("El Archivo no Existe");
-            }
-        } catch(Exception e) {
-            System.out.println(e);
-        }
-    }
-    
-    
-    
-    public String getArchivo (String ruta) {
-        FileReader fr;
-        BufferedReader br = null;
-        String contenido = "";
-        try {
-            fr = new FileReader(ruta);
-            br = new BufferedReader( fr );
-            String linea;
-            while ((linea = br.readLine()) != null) { 
-                contenido += linea + "\n";
-            }
-        } catch (Exception e){}
-        finally
-        {
-            try{
-                br.close();
-            } catch (Exception ex) {
-                System.out.println(ex);
-            }
-        }
-        return contenido;
-    }
-    
-    public int cantPedidos () {
-        int cantidad = 0;
-        if (getArchivo ("Pedidos").contains("pedido")) {
-            cantidad = cantidad + 1;
-        }
-        return cantidad;
     }*/
 }
     

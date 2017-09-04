@@ -11,16 +11,7 @@ package proyectoprogramacion;
  */
 public class Ejecutable {
     public static void main(String[] args) {
-        /*VentanaApp ventanaApp = new VentanaApp();
-        ventanaApp.setVisible(true);*/
-        
         VentanaLogin ventanaLogin = new VentanaLogin();
         ventanaLogin.setVisible(true);
-        
-        /*VentanaPedidos ventanaPedidos = new VentanaPedidos();
-        ventanaPedidos.setVisible(true);*/
-        
-        /*VentanaPago ventanaPago = new VentanaPago();
-        ventanaPago.setVisible(true);*/
     }
 }

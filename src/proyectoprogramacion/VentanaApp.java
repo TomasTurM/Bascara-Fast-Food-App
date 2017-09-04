@@ -12,17 +12,23 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import org.json.* ;
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author tomasm
  */
 public class VentanaApp extends JFrame implements ItemListener, ActionListener, WindowFocusListener {
-    ClasePedido pedido = new ClasePedido();
-    ClasePedido clasePedido = new ClasePedido();
+    ClaseProducto producto = new ClaseProducto();
+    ClaseProducto claseProducto = new ClaseProducto();
+    ClasePizza clasePizza = new ClasePizza();
+    ClaseHamburguesa claseHamburguesa = new ClaseHamburguesa();
     
     VentanaLogin ventanaLogin = new VentanaLogin();
     
-    String nombreConsumidor = ventanaLogin.clasePedido.nombreConsumidor;
+    String nombreConsumidor = ventanaLogin.claseProducto.nombreConsumidor;
     
     int numeroPedido = 1;
     int numValid;
@@ -359,7 +365,11 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener, 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.confirmar) {
-             setearPedido();
+            try {
+                setearPedido();
+            } catch (JSONException ex) {
+                Logger.getLogger(VentanaApp.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }   
     
@@ -401,56 +411,68 @@ public class VentanaApp extends JFrame implements ItemListener, ActionListener, 
         rb7.setSelected(false);
     }
     
-    public void setearPedido () {
-            pedido.nombreConsumidor = nombreConsumidor;
-            pedido.comida = comboBoxComida.getSelectedItem().toString();
-             pedido.dobleHamburguesa = rb1.isSelected();
-             pedido.tripleHamburguesa = rb2.isSelected();
-             pedido.queso = cb1.isSelected();
-             pedido.tomate1 = cb2.isSelected();
-             pedido.lechuga = cb3.isSelected();
-             pedido.mayonesa = cb4.isSelected();
-             pedido.tomate2 = cb5.isSelected();
-             pedido.rucula = cb6.isSelected();
-             pedido.huevo = cb7.isSelected();
-             pedido.jamon = cb8.isSelected();
-             pedido.cantEmpanadas = tf1.getText();
-             pedido.pollo = rb3.isSelected();
-             pedido.carne = rb4.isSelected();
-             pedido.carneCuchillo =  rb5.isSelected();
-             pedido.jamon_queso = rb6.isSelected();
-             pedido.criollo = rb7.isSelected();
-             pedido.bebida = comboBoxBebida.getSelectedItem().toString();
-             pedido.guarnicion = comboBoxGuarnicion.getSelectedItem().toString();
-             pedido.aderezo = comboBoxAderezo.getSelectedItem().toString();
-             System.out.println(toString());
+    public void setearPedido () throws JSONException {
+            producto.nombreConsumidor = nombreConsumidor;
+            producto.comida = comboBoxComida.getSelectedItem().toString();
+            claseHamburguesa.dobleHamburguesa = rb1.isSelected();
+            claseHamburguesa.tripleHamburguesa = rb2.isSelected();
+            claseHamburguesa.queso = cb1.isSelected();
+            claseHamburguesa.tomate1 = cb2.isSelected();
+            claseHamburguesa.lechuga = cb3.isSelected();
+            claseHamburguesa.mayonesa = cb4.isSelected();
+            clasePizza.tomate2 = cb5.isSelected();
+            clasePizza.rucula = cb6.isSelected();
+            clasePizza.huevo = cb7.isSelected();
+            clasePizza.jamon = cb8.isSelected();
+            producto.cantEmpanadas = tf1.getText();
+            producto.pollo = rb3.isSelected();
+            producto.carne = rb4.isSelected();
+            producto.carneCuchillo =  rb5.isSelected();
+            producto.jamon_queso = rb6.isSelected();
+            producto.criollo = rb7.isSelected();
+            producto.bebida = comboBoxBebida.getSelectedItem().toString();
+            producto.guarnicion = comboBoxGuarnicion.getSelectedItem().toString();
+            producto.aderezo = comboBoxAderezo.getSelectedItem().toString();
              
+            JSONObject jsonObj = new JSONObject();
+            JSONArray jsonPedidos = new JSONArray();
+            
+            jsonPedidos.put(toString());
+            jsonObj.put("Pedido",jsonPedidos);
+             
+            try (FileWriter escritor = new FileWriter("Pedidos.json")) {
+                 escritor.write(jsonObj.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+             
+             System.out.println(toString());
     }
 
     @Override
     public String toString() {
         String elPedido = "";
-        if (numValid == 1 && pedido.dobleHamburguesa == true) {
-            elPedido = "Pedido " + numeroPedido + " = " + "Doble Hamburguesa, " + "Queso = " + pedido.queso + ", Tomate = " + pedido.tomate1 + ", Lechuga = " + pedido.lechuga + ", Mayonesa = " + pedido.mayonesa + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
-        } else if (numValid == 1 && pedido.tripleHamburguesa == true) {
-            elPedido = "Pedido " + numeroPedido + " = " + "Triple Hamburguesa, " + "Queso = " + pedido.queso + ", Tomate = " + pedido.tomate1 + ", Lechuga = " + pedido.lechuga + ", Mayonesa = " + pedido.mayonesa + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        if (numValid == 1 && claseHamburguesa.dobleHamburguesa == true) {
+            elPedido = "Pedido " + numeroPedido + " = " + "Doble Hamburguesa, " + "Queso = " + claseHamburguesa.queso + ", Tomate = " + claseHamburguesa.tomate1 + ", Lechuga = " + claseHamburguesa.lechuga + ", Mayonesa = " + claseHamburguesa.mayonesa + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        } else if (numValid == 1 && claseHamburguesa.tripleHamburguesa == true) {
+            elPedido = "Pedido " + numeroPedido + " = " + "Triple Hamburguesa, " + "Queso = " + claseHamburguesa.queso + ", Tomate = " + claseHamburguesa.tomate1 + ", Lechuga = " + claseHamburguesa.lechuga + ", Mayonesa = " + claseHamburguesa.mayonesa + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
         }
-        if (numValid == 1 && pedido.dobleHamburguesa == false && pedido.tripleHamburguesa == false) {
-            elPedido = "Pedido " + numeroPedido + " = " + "Hamburguesa Simple, " + "Queso = " + pedido.queso + ", Tomate = " + pedido.tomate1 + ", Lechuga = " + pedido.lechuga + ", Mayonesa = " + pedido.mayonesa + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        if (numValid == 1 && claseHamburguesa.dobleHamburguesa == false && claseHamburguesa.tripleHamburguesa == false) {
+            elPedido = "Pedido " + numeroPedido + " = " + "Hamburguesa Simple, " + "Queso = " + claseHamburguesa.queso + ", Tomate = " + claseHamburguesa.tomate1 + ", Lechuga = " + claseHamburguesa.lechuga + ", Mayonesa = " + claseHamburguesa.mayonesa + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
         }  
         if (numValid == 2) {
-            elPedido = "Pedido " + numeroPedido + " = " + "Pizza, " + "Tomate = " + pedido.tomate2 + ", Rucula = " + pedido.rucula + ", Huevo = " + pedido.huevo + ", Jamon = " + pedido.jamon + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+            elPedido = "Pedido " + numeroPedido + " = " + "Pizza, " + "Tomate = " + clasePizza.tomate2 + ", Rucula = " + clasePizza.rucula + ", Huevo = " + clasePizza.huevo + ", Jamon = " + clasePizza.jamon + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
         }
-        if (numValid == 3 && pedido.pollo == true) {
-            elPedido = "Pedido " + numeroPedido + " = " + pedido.cantEmpanadas + " Empanada/s de Pollo" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
-        } else if (numValid == 3 && pedido.carne == true) {
-            elPedido = "Pedido " + numeroPedido + " = " + pedido.cantEmpanadas + " Empanada/s de Carne" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
-        } else if (numValid == 3 && pedido.carneCuchillo == true) {
-            elPedido = "Pedido " + numeroPedido + " = " + pedido.cantEmpanadas + " Empanada/s de Carne al Cuchillo" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
-        } else if (numValid == 3 && pedido.jamon_queso == true) {
-            elPedido = "Pedido " + numeroPedido + " = " + pedido.cantEmpanadas + " Empanada/s de Jamon y Queso" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
-        } else if (numValid == 3 && pedido.criollo == true) {
-            elPedido = "Pedido " + numeroPedido + " = " + pedido.cantEmpanadas + " Empanada/s Criolla/s" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        if (numValid == 3 && producto.pollo == true) {
+            elPedido = "Pedido " + numeroPedido + " = " + producto.cantEmpanadas + " Empanada/s de Pollo" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        } else if (numValid == 3 && producto.carne == true) {
+            elPedido = "Pedido " + numeroPedido + " = " + producto.cantEmpanadas + " Empanada/s de Carne" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        } else if (numValid == 3 && producto.carneCuchillo == true) {
+            elPedido = "Pedido " + numeroPedido + " = " + producto.cantEmpanadas + " Empanada/s de Carne al Cuchillo" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        } else if (numValid == 3 && producto.jamon_queso == true) {
+            elPedido = "Pedido " + numeroPedido + " = " + producto.cantEmpanadas + " Empanada/s de Jamon y Queso" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
+        } else if (numValid == 3 && producto.criollo == true) {
+            elPedido = "Pedido " + numeroPedido + " = " + producto.cantEmpanadas + " Empanada/s Criolla/s" + ", Bebida = " + comboBoxBebida.getSelectedItem() + ", Guarnicion = " + comboBoxGuarnicion.getSelectedItem() + ", Aderezo = " + comboBoxAderezo.getSelectedItem();
         }
         return elPedido;
     }
